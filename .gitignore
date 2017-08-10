@@ -3,4 +3,5 @@ composer.lock
 *.log
 thinkphp
 vendor
-public/node_modules
+public/dist
+
