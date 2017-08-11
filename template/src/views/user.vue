@@ -1,108 +1,76 @@
 <template>
-    <Card style="width:350px">
-        <p slot="title">
-            <Icon type="ios-film-outline"></Icon>
-            经典电影
-        </p>
-        <a href="#" slot="extra" @click.prevent="changeLimit">
-            <Icon type="ios-loop-strong"></Icon>
-            换一换
-        </a>
-        <ul>
-            <li v-for="item in randomMovieList">
-                <a :href="item.url" target="_blank">{{ item.name }}</a>
-                <span>
-                    <Icon type="ios-star" v-for="n in 4" :key="n"></Icon><Icon type="ios-star" v-if="item.rate >= 9.5"></Icon><Icon type="ios-star-half" v-else></Icon>
-                    {{ item.rate }}
-                </span>
-            </li>
-        </ul>
-        <router-link to="/"><Button type="primary">Go Back</Button></router-link>
-    </Card>
+    <Row>
+        <Col span="24">
+            <router-link to="/"><Button type="primary">Go Back</Button></router-link>
+        </Col>
+        <Col span="24">
+            <Table :data="tableData.data" :columns="tableColumns" stripe></Table>
+            <div style="margin: 10px;overflow: hidden">
+                <div style="float: right;">
+                    <Page placement="top" :total="tableData.total" :current="tableData.current_page" :page-size="tableData.per_page" @on-change="changePage" @on-page-size-change="changeSize" show-total show-elevator show-sizer></Page>
+                </div>
+            </div>
+        </Col>
+    </Row>
 </template>
 <script>
     export default {
+        mounted () {
+            this.mockTableData1();
+        },
         data () {
             return {
-                movieList: [
+                tableData: {
+                    total:'',
+                    current_page:1,
+                    per_page:10,
+                    last_page:1,
+                    order:'',
+                    field:'asc',
+                    data:[]
+                },
+                tableColumns: [
                     {
-                        name: '肖申克的救赎',
-                        url: 'https://movie.douban.com/subject/1292052/',
-                        rate: 9.6
+                        title: '编号',
+                        key: 'user_id'
                     },
                     {
-                        name: '这个杀手不太冷',
-                        url: 'https://movie.douban.com/subject/1295644/',
-                        rate: 9.4
+                        title: '用户名',
+                        key: 'user_name'
                     },
                     {
-                        name: '霸王别姬',
-                        url: 'https://movie.douban.com/subject/1291546/',
-                        rate: 9.5
+                        title: '密码',
+                        key: 'password'
                     },
                     {
-                        name: '阿甘正传',
-                        url: 'https://movie.douban.com/subject/1292720/',
-                        rate: 9.4
+                        title: '年龄',
+                        key: 'age'
                     },
-                    {
-                        name: '美丽人生',
-                        url: 'https://movie.douban.com/subject/1292063/',
-                        rate: 9.5
-                    },
-                    {
-                        name: '千与千寻',
-                        url: 'https://movie.douban.com/subject/1291561/',
-                        rate: 9.2
-                    },
-                    {
-                        name: '辛德勒的名单',
-                        url: 'https://movie.douban.com/subject/1295124/',
-                        rate: 9.4
-                    },
-                    {
-                        name: '海上钢琴师',
-                        url: 'https://movie.douban.com/subject/1292001/',
-                        rate: 9.2
-                    },
-                    {
-                        name: '机器人总动员',
-                        url: 'https://movie.douban.com/subject/2131459/',
-                        rate: 9.3
-                    },
-                    {
-                        name: '盗梦空间',
-                        url: 'https://movie.douban.com/subject/3541415/',
-                        rate: 9.2
-                    }
-                ],
-                randomMovieList: []
+
+                ]
             }
         },
         methods: {
-            changeLimit () {
-                function getArrayItems(arr, num) {
-                    const temp_array = [];
-                    for (let index in arr) {
-                        temp_array.push(arr[index]);
-                    }
-                    const return_array = [];
-                    for (let i = 0; i<num; i++) {
-                        if (temp_array.length>0) {
-                            const arrIndex = Math.floor(Math.random()*temp_array.length);
-                            return_array[i] = temp_array[arrIndex];
-                            temp_array.splice(arrIndex, 1);
-                        } else {
-                            break;
-                        }
-                    }
-                    return return_array;
-                }
-                this.randomMovieList = getArrayItems(this.movieList, 5);
+            mockTableData1 () {
+                this.$http.post('/api.php/user',{page:this.tableData.current_page,limit:this.tableData.per_page,total:this.tableData.total}).then(response=>{
+                    this.$set(this.tableData,'data', response.data.data);
+                    this.$set(this.tableData,'total',response.data.total);
+                    this.$set(this.tableData,'current_page', response.data.current_page);
+                    this.$set(this.tableData,'per_page', response.data.per_page);
+                    this.$set(this.tableData,'last_page', response.data.last_page);
+                },response=>{
+                    console.log('error:post to user!');
+                });
+            },
+            changePage (page) {
+                this.tableData.current_page=page;
+                this.mockTableData1();
+            },
+            changeSize(size){
+                this.tableData.per_page=size;
+                this.mockTableData1();
             }
-        },
-        mounted () {
-            this.changeLimit();
+
         }
     }
 </script>

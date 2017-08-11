@@ -52,7 +52,7 @@
 <template>
     <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
         <Row type="flex">
-            <i-col :span="spanLeft" class="layout-menu-left">
+            <Col :span="spanLeft" class="layout-menu-left">
                 <Menu active-name="1" theme="dark" width="auto">
                     <div class="layout-logo-left"></div>
                     <Menu-item name="1">
@@ -68,8 +68,8 @@
                         <span class="layout-text">选项 3</span>
                     </Menu-item>
                 </Menu>
-            </i-col>
-            <i-col :span="spanRight">
+            </Col>
+            <Col :span="spanRight">
                 <div class="layout-header">
                     <i-button type="text" @click="toggleClick">
                         <Icon type="navicon" size="32"></Icon>
@@ -93,7 +93,7 @@
                 <div class="layout-copy">
                     2011-2016 &copy; TalkingData
                 </div>
-            </i-col>
+            </Col>
         </Row>
     </div>
 </template>

@@ -12,6 +12,7 @@
 use think\Route;
 
 Route::rule([
+    'user'=>'User/index',
     'user/login'=>'User/login',
     'user/logout'=>'User/logout',
     'user/home'=>'Home/index'

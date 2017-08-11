@@ -8,6 +8,7 @@
 namespace app\api\controller;
 
 use app\api\model\Users;
+use think\Log;
 
 class User extends \think\Controller
 {
@@ -21,5 +22,15 @@ class User extends \think\Controller
         ]);
         $mdl_users->save();
         return json(['name'=>'hito','age'=>27,'hash'=>'abcde']);
+    }
+
+    public function index()
+    {
+        $mdl_users=new Users();
+        $total=input('param.total',false);
+        if($total){
+            $total=(int)$total;
+        }
+        return json($mdl_users->paginate(input('param.limit',null),$total,['page'=>input('param.page',1)]));
     }
 }

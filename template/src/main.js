@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import iView from 'iview';
 import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
 import Routers from './router';
 import Vuex from 'vuex';
 import Util from './libs/util';
 import App from './app.vue';
 // import 'iview/dist/styles/iview.css';
 import './theme/main.less';
-
 import VueI18n from 'vue-i18n';
 import Locales from './locale';
 import zhLocale from 'iview/src/locale/lang/zh-CN';
@@ -17,6 +17,13 @@ Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(VueI18n);
 Vue.use(iView);
+Vue.use(VueResource);
+//Vue.http.headers.common['X-XSRF-TOKEN']=$('meta[name="csrf-token"]').attr('content');
+Vue.filter('time',function (value) {
+    if(value !== 0){
+        return new Date(parseInt(value) * 1000).toLocaleString();
+    }
+});
 
 // 自动设置语言
 const navLang = navigator.language;
