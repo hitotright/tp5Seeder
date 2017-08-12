@@ -21,7 +21,7 @@
         data () {
             return {
                 tableData: {
-                    total:'',
+                    total:null,
                     current_page:1,
                     per_page:10,
                     last_page:1,
@@ -52,14 +52,15 @@
         },
         methods: {
             mockTableData1 () {
-                this.$http.post('/api.php/user',{page:this.tableData.current_page,limit:this.tableData.per_page,total:this.tableData.total}).then(response=>{
+                this.Util.ajax.post('/api.php/user',{page:this.tableData.current_page,limit:this.tableData.per_page,total:this.tableData.total})
+                .then(response=>{
                     this.$set(this.tableData,'data', response.data.data);
                     this.$set(this.tableData,'total',response.data.total);
                     this.$set(this.tableData,'current_page', response.data.current_page);
                     this.$set(this.tableData,'per_page', response.data.per_page);
                     this.$set(this.tableData,'last_page', response.data.last_page);
                 },response=>{
-                    console.log('error:post to user!');
+                    this.$Message.error('数据库访问失败！');
                 });
             },
             changePage (page) {

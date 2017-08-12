@@ -1,5 +1,10 @@
+<style >
+.index .ivu-row-flex {
+height: 100%;
+}
+</style>
 <template>
-    <div>
+    <div class="index">
         <router-view></router-view>
     </div>
 </template>

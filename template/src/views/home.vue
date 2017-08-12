@@ -1,4 +1,4 @@
-<style scoped>
+<style>
     .layout{
         border: 1px solid #d7dde4;
         background: #f5f7f9;
@@ -6,119 +6,107 @@
         border-radius: 4px;
         overflow: hidden;
     }
-    .layout-breadcrumb{
-        padding: 10px 15px 0;
-    }
-    .layout-content{
-        min-height: 200px;
-        margin: 15px;
-        overflow: hidden;
-        background: #fff;
-        border-radius: 4px;
-    }
-    .layout-content-main{
-        padding: 10px;
+    .layout-logo{
+        width: 30px;
+        height: 30px;
+        float: left;
+        margin-left: 30px;
     }
     .layout-copy{
         text-align: center;
         padding: 10px 0 20px;
         color: #9ea7b4;
     }
-    .layout-menu-left{
-        background: #464c5b;
-    }
     .layout-header{
-        height: 60px;
-        background: #fff;
-        box-shadow: 0 1px 1px rgba(0,0,0,.1);
+        background: #464c5b;
+        padding: 10px 0;
+        overflow: hidden;
     }
-    .layout-logo-left{
-        width: 90%;
+    .layout-ceiling-main{
+        text-align: center;
+        float: right;
+        margin-right: 15px;
+        padding-top: 7px;
         height: 30px;
-        background: #5b6270;
-        border-radius: 3px;
-        margin: 15px auto;
     }
     .layout-ceiling-main a{
         color: #9ba7b5;
     }
-    .layout-hide-text .layout-text{
-        display: none;
-    }
-    .ivu-col{
-        transition: width .2s ease-in-out;
-    }
 </style>
 <template>
-    <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
-        <Row type="flex">
-            <Col :span="spanLeft" class="layout-menu-left">
-                <Menu active-name="1" theme="dark" width="auto">
-                    <div class="layout-logo-left"></div>
-                    <Menu-item name="1">
-                        <Icon type="ios-navigate" :size="iconSize"></Icon>
-                        <span class="layout-text">选项 1</span>
-                    </Menu-item>
-                    <Menu-item name="2">
-                        <Icon type="ios-keypad" :size="iconSize"></Icon>
-                        <span class="layout-text">选项 2</span>
-                    </Menu-item>
-                    <Menu-item name="3">
-                        <Icon type="ios-analytics" :size="iconSize"></Icon>
-                        <span class="layout-text">选项 3</span>
-                    </Menu-item>
+    <div class="layout">
+        <div class="layout-header">
+            <img class="layout-logo" src="https://raw.githubusercontent.com/iview/iview/master/assets/logo.png">
+            <div class="layout-ceiling-main">
+                <a href="#">注册登录</a>
+                <a href="#">帮助中心</a>
+                <a href="#">安全中心</a>
+                <a href="#">服务大厅</a>
+            </div>
+        </div>
+        <div>
+            <Row >
+                <Col span="4">
+                <Menu :theme="menu_theme" :width="menu_width" >
+                    <router-link to="/"><Menu-item name="1-1">Go Back</Menu-item></router-link>
+
+                    <router-link to="/home/user"><Menu-item name="1-1">用户列表</Menu-item></router-link>
+                    <Submenu name="1">
+                        <template slot="title">
+                            <Icon type="ios-paper"></Icon>
+                            内容管理
+                        </template>
+                        <Menu-item name="1-1">文章管理</Menu-item>
+                        <Menu-item name="1-2">评论管理</Menu-item>
+                        <Menu-item name="1-3">举报管理</Menu-item>
+                    </Submenu>
+                    <Submenu name="2">
+                        <template slot="title">
+                            <Icon type="ios-people"></Icon>
+                            用户管理
+                        </template>
+                        <Menu-item name="2-1">新增用户</Menu-item>
+                        <Menu-item name="2-2">活跃用户</Menu-item>
+                    </Submenu>
+                    <Submenu name="3">
+                        <template slot="title">
+                            <Icon type="stats-bars"></Icon>
+                            统计分析
+                        </template>
+                        <Menu-group title="使用">
+                            <Menu-item name="3-1">新增和启动</Menu-item>
+                            <Menu-item name="3-2">活跃分析</Menu-item>
+                            <Menu-item name="3-3">时段分析</Menu-item>
+                        </Menu-group>
+                        <Menu-group title="留存">
+                            <Menu-item name="3-4">用户留存</Menu-item>
+                            <Menu-item name="3-5">流失用户</Menu-item>
+                        </Menu-group>
+                    </Submenu>
                 </Menu>
-            </Col>
-            <Col :span="spanRight">
-                <div class="layout-header">
-                    <i-button type="text" @click="toggleClick">
-                        <Icon type="navicon" size="32"></Icon>
-                    </i-button>
-                </div>
-                <div class="layout-breadcrumb">
-                    <Breadcrumb>
-                        <Breadcrumb-item href="#">首页</Breadcrumb-item>
-                        <Breadcrumb-item href="#">应用中心</Breadcrumb-item>
-                        <Breadcrumb-item>某应用</Breadcrumb-item>
-                    </Breadcrumb>
-                </div>
-                <div class="layout-content">
-                    <div class="layout-content-main">
-                        内容区域
-                         <router-link to="/">Go Back</router-link>
-                        <router-link  to="/home/user"><Button type="primary">Go to User</Button></router-link>
-                        <router-view></router-view>
-                    </div>
-                </div>
-                <div class="layout-copy">
-                    2011-2016 &copy; TalkingData
-                </div>
-            </Col>
-        </Row>
+                <br>
+                <p>切换主题</p>
+                <Radio-group v-model="theme2">
+                    <Radio label="light"></Radio>
+                    <Radio label="dark"></Radio>
+                </Radio-group>
+                </Col>
+                <Col span="20">
+                <router-view></router-view>
+                </Col>
+            </Row>
+        </div>
+        <div class="layout-copy">
+            2011-2016 &copy; TalkingData
+        </div>
     </div>
 </template>
 <script>
     export default {
         data () {
             return {
-                spanLeft: 5,
-                spanRight: 19
-            }
-        },
-        computed: {
-            iconSize () {
-                return this.spanLeft === 5 ? 14 : 24;
-            }
-        },
-        methods: {
-            toggleClick () {
-                if (this.spanLeft === 5) {
-                    this.spanLeft = 2;
-                    this.spanRight = 22;
-                } else {
-                    this.spanLeft = 5;
-                    this.spanRight = 19;
-                }
+                menu_theme: 'light',
+                menu_width: 'auto'
             }
         }
     }

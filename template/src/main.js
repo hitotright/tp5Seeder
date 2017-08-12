@@ -18,7 +18,6 @@ Vue.use(Vuex);
 Vue.use(VueI18n);
 Vue.use(iView);
 Vue.use(VueResource);
-//Vue.http.headers.common['X-XSRF-TOKEN']=$('meta[name="csrf-token"]').attr('content');
 Vue.filter('time',function (value) {
     if(value !== 0){
         return new Date(parseInt(value) * 1000).toLocaleString();
@@ -58,6 +57,7 @@ router.afterEach(() => {
     window.scrollTo(0, 0);
 });
 
+Vue.prototype.Util=Util;
 
 const store = new Vuex.Store({
     state: {
