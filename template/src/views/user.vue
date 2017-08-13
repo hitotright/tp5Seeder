@@ -1,7 +1,7 @@
 <template>
     <Row>
         <Col span="24">
-            <router-link to="/"><Button type="primary">Go Back</Button></router-link>
+            <router-link to="/"><Button type="primary" class="pull-left">Go Back</Button></router-link>
         </Col>
         <Col span="24">
             <Table :data="tableData.data" :columns="tableColumns" stripe></Table>
@@ -63,7 +63,7 @@
                     this.$Message.error('数据库访问失败！');
                 });
             },
-            changePage (page) {
+            changePage(page) {
                 this.tableData.current_page=page;
                 this.mockTableData1();
             },

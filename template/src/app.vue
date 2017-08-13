@@ -1,6 +1,11 @@
 <style >
-.index .ivu-row-flex {
-height: 100%;
+.index {
+    height: auto;
+    min-height: 100%;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+    background: #f5f7f9;
 }
 </style>
 <template>

@@ -8,29 +8,34 @@
 namespace app\api\controller;
 
 use app\api\model\Users;
+use think\Cache;
 use think\Log;
 
-class User extends \think\Controller
+class User extends Base
 {
+    protected $checkLogin = true;
     public function login()
     {
         $mdl_users = new Users();
-        $mdl_users->data([
-           'user_name'=>'ll',
-            'password'=>'lll',
-            'age'=>11
-        ]);
-        $mdl_users->save();
-        return json(['name'=>'hito','age'=>27,'hash'=>'abcde']);
+        $mdl_users->select(['user_name'=>input('param.user_name')]);
+        $user=$mdl_users->find();
+        if($user['password']===input('param.password')){
+            session('user',$user);
+            return json($user);
+        }else{
+            return json(['error']);
+        }
+    }
+
+    public function test()
+    {
+        //Cache::set('user',session('user.password'));
+        return json( Cache::get('user'));
     }
 
     public function index()
     {
         $mdl_users=new Users();
-        $total=input('param.total',false);
-        if($total){
-            $total=(int)$total;
-        }
-        return json($mdl_users->paginate(input('param.limit',null),$total,['page'=>input('param.page',1)]));
+        return json($mdl_users->paginate());
     }
 }

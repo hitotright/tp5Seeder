@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import iView from 'iview';
 import VueRouter from 'vue-router';
-import VueResource from 'vue-resource';
+//import VueResource from 'vue-resource';
 import Routers from './router';
 import Vuex from 'vuex';
 import Util from './libs/util';
@@ -17,7 +17,7 @@ Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(VueI18n);
 Vue.use(iView);
-Vue.use(VueResource);
+//Vue.use(VueResource);
 Vue.filter('time',function (value) {
     if(value !== 0){
         return new Date(parseInt(value) * 1000).toLocaleString();
