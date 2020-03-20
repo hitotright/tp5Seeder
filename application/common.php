@@ -10,3 +10,11 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+const SUPER_USER_ID = 1; //超级管理员
+
+const LOGIN_TIMEOUT_CODE = 203;
+const NO_PERMISSION_CODE = 401;
+
+const DATATIME_FORMAT = "Y-m-d H:i:s";
+
+

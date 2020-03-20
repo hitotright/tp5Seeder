@@ -1,0 +1,129 @@
+/* input {
+    border: none !important;
+    border-bottom: 1px solid #36a9e6 !important;
+    border-radius: 0px !important
+} */
+
+.login-wrap {
+    display: flex;
+    align-items: Center;
+    width: 100%;
+    height: 100%;
+    background: #0a78d3 url('../img/bg1.jpg') no-repeat center center;
+    background-size: 100% 100%;
+}
+
+.title {
+    position: absolute;
+    padding-bottom: 10px;
+    background-size: 100%;
+    top: 30px;
+    left: 10%;
+    display: flex
+}
+
+.title p {
+    font-weight: normal;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 1px;
+    color: #ffffff;
+    margin: 5px 10px
+}
+
+.box {
+    position: relative;
+    width: 800px;
+    height: 462px;
+    margin: auto auto;
+    background: url(../img/bg2.png) no-repeat center;
+    background-size: 100%;
+}
+
+.box .rightbox {
+    position: absolute;
+    width: 290px;
+    height: 439px;
+    background-color: #ffffff;
+    right: 18px;
+    top: 11px;
+}
+.footer
+.el-icon-user {
+    background: url(../img/login_icons.png) no-repeat 4px center;
+}
+
+.el-icon-pass {
+    background: url(../img/login_icons.png) no-repeat -18px center;
+}
+
+.box .left {
+    width: 80%;
+    height: 80%;
+    margin: auto
+}
+
+.box .left h3 {
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 15vh;
+    margin-bottom: 5vh;
+    letter-spacing: 1px;
+}
+
+.box .left .el-form .el-form-item {
+    margin-bottom: 10%;
+}
+
+.box .left .submit {
+    text-align: center;
+    margin-top: 15%;
+}
+
+.box .left .submit button {
+    width: 100%;
+    height: 36px;
+    letter-spacing: 5px;
+    background-color: #36a9e6;
+}
+
+.footer {
+    color: #99d5e7;
+    font-size: 13px;
+    height: 90px;
+    text-align: left;
+    position: absolute;
+    bottom: 0;
+    left: 39px;
+}
+.logo_box{
+    display: flex;
+    justify-content: center;
+    height: 22px;
+    margin: 90px 0px 67px 0;
+}
+.login-wrap .el-input__inner{
+    border: none !important;
+}
+.input_name{
+    border: none;
+    border-bottom: 1px solid rgb(187,187,187);
+}
+.input_pass{
+    display: none;
+    border-bottom: 1px solid rgb(187,187,187);
+}
+
+.login-wrap .el-form-item.is-success .el-input__inner, .el-form-item.is-success .el-input__inner:focus, .el-form-item.is-success .el-textarea__inner, .el-form-item.is-success .el-textarea__inner:focus{
+    border: none;
+}
+.login-wrap .input_pass:focus{
+    border-bottom: 1px solid  rgb(42, 177, 232) !important;
+}
+.login-wrap .input_name:focus{
+    border-bottom: 1px solid  rgb(42, 177, 232) !important;
+}
+.login-wrap .el-checkbox__label{
+    font-size: 12px !important;
+}

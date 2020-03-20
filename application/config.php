@@ -8,18 +8,19 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
 return [
+
     // +----------------------------------------------------------------------
     // | 应用设置
     // +----------------------------------------------------------------------
 
-    // 应用命名空间
-    'app_namespace'          => 'app',
     // 应用调试模式
+//    'app_debug'              => false,
     'app_debug'              => true,
+    //打印error_trace
+    'record_trace'           => true,
     // 应用Trace
-    'app_trace'              => true,
+    'app_trace'              => false,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -29,7 +30,7 @@ return [
     // 注册的根命名空间
     'root_namespace'         => [],
     // 扩展函数文件
-    'extra_file_list'        => [THINK_PATH . 'helper' . EXT],
+    'extra_file_list'        => [ APP_PATH . 'helper.php', THINK_PATH . 'helper.php'],
     // 默认输出类型
     'default_return_type'    => 'html',
     // 默认AJAX 数据返回格式,可选json xml ...
@@ -56,7 +57,7 @@ return [
     // +----------------------------------------------------------------------
 
     // 默认模块名
-    'default_module'         => 'api',
+    'default_module'         => 'index',
     // 禁止访问模块
     'deny_module_list'       => ['common'],
     // 默认控制器名
@@ -95,7 +96,7 @@ return [
     // 路由配置文件（支持配置多个）
     'route_config_file'      => ['route'],
     // 是否强制使用路由
-    'url_route_must'         => false,
+    'url_route_must'         => true,
     // 域名部署
     'url_domain_deploy'      => false,
     // 域名根，如thinkphp.cn
@@ -122,28 +123,35 @@ return [
     // +----------------------------------------------------------------------
 
     'template'               => [
-        // 模板引擎类型 支持 php think 支持扩展
-        'type'         => 'Think',
+        // 模板引擎类型 支持 php think Twig 支持扩展
+        'type'         => 'think',
         // 模板路径
-        'view_path'    => '',
+        'view_path'    => APP_PATH.DS.'index'.DS. 'view' . DS,
         // 模板后缀
-        'view_suffix'  => 'html',
+        'view_suffix'  => '.html',
         // 模板文件名分隔符
         'view_depr'    => DS,
         // 模板引擎普通标签开始标记
-        'tpl_begin'    => '{',
+        'tpl_begin'    => '{{',
         // 模板引擎普通标签结束标记
-        'tpl_end'      => '}',
+        'tpl_end'      => '}}',
         // 标签库标签开始标记
-        'taglib_begin' => '{',
+        'taglib_begin' => '{{',
         // 标签库标签结束标记
-        'taglib_end'   => '}',
-        //视图分离  视图根所在路径
-        //'view_base'=>__DIR__.'/../public/', //入口文件在public下
+        'taglib_end'   => '}}',
+        // 视图字符替换
     ],
 
+    'twig'                   => [
+        'view_path' => '',
+        'view_suffix'=> '_twig.html',
+    ],
+
+
     // 视图输出字符串内容替换
-    'view_replace_str'       => [],
+    'view_replace_str'       => [
+            '__ASSET__'=>'/asset'
+    ],
     // 默认跳转页面对应的模板文件
     'dispatch_success_tmpl'  => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
     'dispatch_error_tmpl'    => THINK_PATH . 'tpl' . DS . 'dispatch_jump.tpl',
@@ -158,7 +166,7 @@ return [
     // 错误显示信息,非调试模式有效
     'error_message'          => '页面错误！请稍后再试～',
     // 显示错误信息
-    'show_error_msg'         => false,
+    'show_error_msg'         => true,
     // 异常处理handle类 留空使用 \think\exception\Handle
     'exception_handle'       => '',
 
@@ -172,7 +180,8 @@ return [
         // 日志保存目录
         'path'  => LOG_PATH,
         // 日志记录级别
-        'level' => [],
+//        'level' => ['error','notice','debug','log'],
+        'level' => ['error'],
     ],
 
     // +----------------------------------------------------------------------
@@ -190,10 +199,13 @@ return [
     'cache'                  => [
         // 驱动方式
         'type'   => 'File',
-        // 缓存保存目录
         'path'   => CACHE_PATH,
+        // 缓存保存目录
+//        'type'   => 'memcached',
+//        'host' => '192.168.16.5',
+//        'port' => 11211,
         // 缓存前缀
-        'prefix' => '',
+        'prefix' => 'live_s_',
         // 缓存有效期 0表示永久缓存
         'expire' => 0,
     ],
@@ -207,13 +219,14 @@ return [
         // SESSION_ID的提交变量,解决flash上传跨域
         'var_session_id' => '',
         // SESSION 前缀
-        'prefix'         => 'think',
+        'prefix'         => 'live_s_',
         // 驱动方式 支持redis memcache memcached
-        'type'           => '',
+//        'type'           => 'memcached',
+//        'port' => 11211,
+//        'host' => '192.168.16.5',
         // 是否自动开启 SESSION
         'auto_start'     => true,
-        //过期时间
-        'expire'=>3600
+        'expire'=>86400
     ],
 
     // +----------------------------------------------------------------------
@@ -221,9 +234,9 @@ return [
     // +----------------------------------------------------------------------
     'cookie'                 => [
         // cookie 名称前缀
-        'prefix'    => '',
+        'prefix'    => 'live_s_',
         // cookie 保存时间
-        'expire'    => 0,
+        'expire' => 86400,
         // cookie 保存路径
         'path'      => '/',
         // cookie 有效域名
@@ -240,6 +253,7 @@ return [
     'paginate'               => [
         'type'      => 'bootstrap',
         'var_page'  => 'page',
-        'list_rows' => 10,
+        'list_rows' => 15,
     ],
+
 ];

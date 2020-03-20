@@ -9,4 +9,8 @@
 // | Author: yunwuxin <448901948@qq.com>
 // +----------------------------------------------------------------------
 
-return [];
+return [
+    'app\script\command\CallStatus',
+    /*** test ************************/
+    'app\script\test\Test',
+];

@@ -1,7 +1,6 @@
 .idea
 composer.lock
 *.log
-thinkphp
-vendor
-public/dist
-
+public/static
+resources/node_modules
+runtime/

@@ -8,23 +8,16 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
 use think\Route;
 
+
 Route::rule([
-    'user'=>'User/index',
-    'user/login'=>'User/login',
-    'user/logout'=>'User/logout',
-    'user/home'=>'Home/index'
+    'error/:code'=>function($code){
+        return $code;
+    },
+    ':dir/:controller/:action'=> 'index/:dir.:controller/:action',
 ]);
+Route::any(':url','index/Error/index');
 
-//return [
-//    '__pattern__' => [
-//        'name' => '\w+',
-//    ],
-//    '[hello]'     => [
-//        ':id'   => ['index/hello', ['method' => 'get'], ['id' => '\d+']],
-//        ':name' => ['index/hello', ['method' => 'post']],
-//    ],
 
-//];
+

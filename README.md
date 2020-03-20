@@ -1,15 +1,5 @@
-TP5-VUE2
-===============
+tp5seed
 
-先安装composer和node.js
-
-###初始化：
-``composer update``  
-``cd template``  
-``npm update``  
-``npm run init``
-  
-  
-
+采用thinkphp5 和 element-ui搭建后台管理系统种子项目
 
 
