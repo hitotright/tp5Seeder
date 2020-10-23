@@ -2,20 +2,24 @@
 namespace app\index\controller;
 
 use app\index\model\PermissionModel;
+use app\throttle\RateLimiter;
+use app\throttle\ThrottleRequests;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 use think\Controller;
+use think\Response;
 use think\Session;
 
 class Base extends Controller
 {
 
     public $purifier;
+    private $response;
 
     protected $noCheckPost=[];
 
     protected $beforeActionList = [
-        'checkLogin','checkPost'
+        'checkLogin','checkPost','rateLimit'
     ];
 
     protected function checkLogin()
@@ -52,6 +56,11 @@ class Base extends Controller
         }
     }
 
+    protected function rateLimit(){
+        $throttle = new ThrottleRequests(new RateLimiter(),Session::get('org_user_id'));
+        $throttle->handle($this->request,$this->getResponse(),60,1);
+    }
+
     protected function unsetPost(&$post,$include=[]){
         foreach ($post as $k=>$value){
             if(!in_array($k,$include)){
@@ -61,7 +70,17 @@ class Base extends Controller
     }
 
     public function jsonReturn($data,$error=0,$message=''){
-        return json(['error'=>$error,'data'=>$data,'message'=>$message]);
+        return $this->getResponse()->content(json_encode(['error'=>$error,'data'=>$data,'message'=>$message]));
+    }
+
+    /**
+     * @return Response|\think\response\Json|\think\response\Jsonp|\think\response\Redirect|\think\response\View|\think\response\Xml
+     */
+    private function getResponse(){
+        if($this->response == null){
+            $this->response = Response::create();
+        }
+        return $this->response;
     }
 
 }
